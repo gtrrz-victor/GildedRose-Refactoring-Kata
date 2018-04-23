@@ -1,0 +1,12 @@
+{
+  "name": "gilded-rose-kata",
+  "version": "6.6.6",
+  "scripts": {
+    "test": "tapes spec/**/*.spec.js"
+  },
+  "devDependencies": {
+    "tape": "4.9.0",
+    "tapes": "4.1.0"
+  },
+  "license": "ISC"
+}

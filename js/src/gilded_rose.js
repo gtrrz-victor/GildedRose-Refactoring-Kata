@@ -5,8 +5,7 @@ class Item {
     this.quality = quality;
   }
 }
-
-class Shop {
+ class Shop {
   constructor(items=[]){
     this.items = items;
   }
@@ -60,3 +59,6 @@ class Shop {
     return this.items;
   }
 }
+
+
+module.exports = {Shop,Item}
