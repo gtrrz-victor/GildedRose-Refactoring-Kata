@@ -1,22 +1,28 @@
-# Kata inspirada en (Gilded Rose)[https://github.com/juancsch/GildedRose-Kata]
-
-## Tiempo para realizar la kata 30 minutos!
+# Kata inspirada en [Gilded Rose](https://github.com/juancsch/GildedRose-Kata)
 
 ## Introducción
 
-Esta parte de la kata, tiene como objetivo la creación de una suit de tests unitarios lo más robusta posible.
+Es esta segunda parte de la kata, en la cual ya tenemos implementados unos robustos tests unitarios, nos podemos arremangar y empezar a refactorizar [este](./src/gilded_rose.js) *maravilloso* código.
 
-Para acometer este objetivo vamos a organizarnos por parejas, cada miembro de la pareja tendrá un rol *(Rol: muñones, Rol: testing)*.
-Vamos a deinifir el objetivo de cada rol:
-* Muñones: Debe modificar el código de la función **Shop.updateQuality()** para que tenga comportamientos erróneos. Siendo lo más retorcido posible, pues debe conseguir que esos errores en el código no sean detectados por los test unitarios implementados por el otro miembro del equipo.
-* Tester: Debe implementar una suit de tests unitarios lo más robusta posible, para conseguir identificar todos y cada uno de los errores introducidos por el rol *Muñones*
+La suit de tests que tenemos implementada se encuentra en el fichero [gildedRose.spec.js](./spec/gildedRose.spec.js).
 
-El tiempo de esta parte de la kata son 30 minutos, los cuales se separan en 2 rondas de 15 minutos. De esta forma, los roles *Muñones* y *Tester* se intercambiarán pasados 15 minutos.
-Una vez finalizadas las dos rondas, comprobaremos los errores que hemos sido capaces de detectar.
+ Nuestro código debe modificar la calidad de los productos de la siguiente manera:
+ * Producto: `Sulfuras, Hand of Ragnaros`
+    * sellin = cualquiera => after quailty = before quality 
+* Producto: `Backstage passes to a TAFKAL80ETC concert`
+    * sellIn >= 10 => quality = quality + 1
+    * 10 < sellIn >= 5 => quality = quality + 2
+    * 5 < sellIn >= 0  => quality = quality + 3
+    * sellIn < 0 => quality = 0
+* Producto: `Aged Brie`
+    * sellIn >= 0 => quality = quality + 1
+    * sellIn < 0 => quality = quality + 2
+* Producto: `Conjured` (falta por implementar)
+    * sellIn >= 0 => quality = quality - 2
+    * sellIn < 0 => quality = quality - 4
+* Producto: `*` (resto de productos)
+    * sellIn >= 0 => quality = quality - 1
+    * sellIn < 0 => quality = quality - 2
 
-## Tips
+## Importante: El parámetro quality nunca puede ser mayor que 50
 
-* Para ejecutar los tests:
-``` npm t ```
-* Fichero que contiene un test ya implementado:
-```./spec/gildedRose.spec.js```
