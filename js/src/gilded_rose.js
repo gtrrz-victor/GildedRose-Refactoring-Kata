@@ -26,7 +26,9 @@ class Shop {
   }
 
   updateQuality () {
+   
     for (const currentItem of this.items) {
+
       const isAgeBrie = currentItem.name === this._AGE_BRIE
       const isNotAgeBrie = !isAgeBrie
       const isBackstagePasses = currentItem.name === this._BACKSTAGE_PASSES
@@ -37,19 +39,20 @@ class Shop {
         this.decreaseQuality(currentItem)
       }
 
-      if (isAgeBrie || isBackstagePasses) {
+      if (isAgeBrie) {
+        this.increaseQuality(currentItem)
+      }
+
+      if (isBackstagePasses) {
 
         this.increaseQuality(currentItem)
 
-        if (isBackstagePasses) {
+        if (this.isInDoubleIncrement(currentItem)) {
+          this.increaseQuality(currentItem)
+        }
 
-          if (this.isInDoubleIncrement(currentItem)) {
-            this.increaseQuality(currentItem)
-          }
-
-          if (this.isInTripleIncrement(currentItem)) {
-            this.increaseQuality(currentItem)
-          }
+        if (this.isInTripleIncrement(currentItem)) {
+          this.increaseQuality(currentItem)
         }
       }
 
