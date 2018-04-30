@@ -27,7 +27,6 @@ class Shop {
   }
 
   updateQuality () {
-
     for (const currentItem of this.items) {
 
       const isNotAgeBrie = currentItem.name !== this._AGE_BRIE
@@ -39,7 +38,7 @@ class Shop {
 
         if (this.hasSomeQuality(currentItem)) {
           if (isNotSulfuras) {
-            currentItem.quality = currentItem.quality - this._UNIT_QUALITY
+            this.decreaseQuality(currentItem)
           }
         }
 
@@ -47,19 +46,19 @@ class Shop {
 
         if (this.maximumQualityNotReach(currentItem)) {
 
-          currentItem.quality = currentItem.quality + this._UNIT_QUALITY
+          this.increaseQuality(currentItem)
 
           if (isBackstagePasses) {
 
             if (this.isInDoubleIncrement(currentItem)) {
               if (this.maximumQualityNotReach(currentItem)) {
-                currentItem.quality = currentItem.quality + this._UNIT_QUALITY
+                this.increaseQuality(currentItem)
               }
             }
 
             if (this.isInTripleIncrement(currentItem)) {
               if (this.maximumQualityNotReach(currentItem)) {
-                currentItem.quality = currentItem.quality + this._UNIT_QUALITY
+                this.increaseQuality(currentItem)
               }
             }
           }
@@ -67,7 +66,7 @@ class Shop {
       }
 
       if (isNotSulfuras) {
-        currentItem.sellIn = currentItem.sellIn - this._UNIT_SELLIN
+        this.decreaseSellin(currentItem)
       }
 
       if (this.isExpired(currentItem)) {
@@ -79,26 +78,42 @@ class Shop {
             if (this.hasSomeQuality(currentItem)) {
 
               if (isNotSulfuras) {
-                currentItem.quality = currentItem.quality - this._UNIT_QUALITY
+                this.decreaseQuality(currentItem)
               }
 
             }
 
           } else {
-            currentItem.quality = currentItem.quality - currentItem.quality
+            this.resetQuality(currentItem)
           }
 
         } else {
 
           if (this.maximumQualityNotReach(currentItem)) {
-            currentItem.quality = currentItem.quality + this._UNIT_QUALITY
+            this.increaseQuality(currentItem)
           }
         }
       }
     }
     return this.items;
   }
-  
+
+  resetQuality (currentItem) {
+    currentItem.quality = this._MINIMUM_QUALITY
+  }
+
+  decreaseSellin (currentItem) {
+    currentItem.sellIn = currentItem.sellIn - this._UNIT_SELLIN
+  }
+
+  increaseQuality (currentItem) {
+    currentItem.quality = currentItem.quality + this._UNIT_QUALITY
+  }
+
+  decreaseQuality (currentItem) {
+    currentItem.quality = currentItem.quality - this._UNIT_QUALITY
+  }
+
   isExpired (currentItem) {
     const isExpired = currentItem.sellIn < this._MINIMUM_SELLIN
     return isExpired
