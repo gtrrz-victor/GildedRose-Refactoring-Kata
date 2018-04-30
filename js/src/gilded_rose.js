@@ -1,56 +1,87 @@
 class Item {
-  constructor(name, sellIn, quality){
-    this.name = name;
-    this.sellIn = sellIn;
-    this.quality = quality;
+  constructor (name, sellIn, quality) {
+    this.name = name
+    this.sellIn = sellIn
+    this.quality = quality
   }
 }
- class Shop {
-  constructor(items=[]){
-    this.items = items;
+
+class Shop {
+  constructor (items) {
+
+    this._TRIPLE_INCREMENT_THRESHOLD = 6
+    this._DOUBLE_INCREMENT_THRESHOLD = 11
+    this._BACKSTAGE_PASSES = 'Backstage passes to a TAFKAL80ETC concert'
+    this._SULFURAS = 'Sulfuras, Hand of Ragnaros'
+    this._AGE_BRIE = 'Aged Brie'
+
+    this._UNIT_SELLIN = 1
+    this._MINIMUM_SELLIN = 0
+
+    this._UNIT_QUALITY = 1
+    this._MINIMUM_QUALITY = 0
+    this._MAXIMUN_QUALITY = 50
+
+    this.items = items
   }
-  updateQuality() {
-    for (var i = 0; i < this.items.length; i++) {
-      if (this.items[i].name != 'Aged Brie' && this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
-        if (this.items[i].quality > 0) {
-          if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-            this.items[i].quality = this.items[i].quality - 1;
+
+  updateQuality () {
+
+    for (const currentItem of this.items) {
+
+      if (currentItem.name !== this._AGE_BRIE && currentItem.name !== this._BACKSTAGE_PASSES) {
+
+        if (currentItem.quality > this._MINIMUM_QUALITY) {
+
+          if (currentItem.name !== this._SULFURAS) {
+            currentItem.quality = currentItem.quality - this._UNIT_QUALITY
           }
         }
       } else {
-        if (this.items[i].quality < 50) {
-          this.items[i].quality = this.items[i].quality + 1;
-          if (this.items[i].name == 'Backstage passes to a TAFKAL80ETC concert') {
-            if (this.items[i].sellIn < 11) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1;
+        if (currentItem.quality < this._MAXIMUN_QUALITY) {
+
+          currentItem.quality = currentItem.quality + this._UNIT_QUALITY
+
+          if (currentItem.name === this._BACKSTAGE_PASSES) {
+
+            if (currentItem.sellIn < this._DOUBLE_INCREMENT_THRESHOLD) {
+              if (currentItem.quality < this._MAXIMUN_QUALITY) {
+                currentItem.quality = currentItem.quality + this._UNIT_QUALITY
               }
             }
-            if (this.items[i].sellIn < 6) {
-              if (this.items[i].quality < 50) {
-                this.items[i].quality = this.items[i].quality + 1;
+
+            if (currentItem.sellIn < this._TRIPLE_INCREMENT_THRESHOLD) {
+              if (currentItem.quality < this._MAXIMUN_QUALITY) {
+                currentItem.quality = currentItem.quality + this._UNIT_QUALITY
               }
             }
           }
         }
       }
-      if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-        this.items[i].sellIn = this.items[i].sellIn - 1;
+
+      if (currentItem.name !== this._SULFURAS) {
+        currentItem.sellIn = currentItem.sellIn - this._UNIT_SELLIN
       }
-      if (this.items[i].sellIn < 0) {
-        if (this.items[i].name != 'Aged Brie') {
-          if (this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
-            if (this.items[i].quality > 0) {
-              if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-                this.items[i].quality = this.items[i].quality - 1;
+
+      if (currentItem.sellIn < this._MINIMUM_SELLIN) {
+
+        if (currentItem.name !== this._AGE_BRIE) {
+
+          if (currentItem.name !== this._BACKSTAGE_PASSES) {
+
+            if (currentItem.quality > this._MINIMUM_QUALITY) {
+
+              if (currentItem.name !== this._SULFURAS) {
+                currentItem.quality = currentItem.quality - this._UNIT_QUALITY
               }
             }
           } else {
-            this.items[i].quality = this.items[i].quality - this.items[i].quality;
+            currentItem.quality = currentItem.quality - currentItem.quality
           }
         } else {
-          if (this.items[i].quality < 50) {
-            this.items[i].quality = this.items[i].quality + 1;
+
+          if (currentItem.quality < this._MAXIMUN_QUALITY) {
+            currentItem.quality = currentItem.quality + this._UNIT_QUALITY
           }
         }
       }
@@ -60,5 +91,7 @@ class Item {
   }
 }
 
-
-module.exports = {Shop,Item}
+module.exports = {
+  Item,
+  Shop
+}
