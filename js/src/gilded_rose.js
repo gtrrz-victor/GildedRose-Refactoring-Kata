@@ -35,14 +35,9 @@ class Shop {
       const isNotBackstagePasses = !isBackstagePasses
       const isNotSulfuras = currentItem.name !== this._SULFURAS
 
-      const hasSomeQuality = currentItem.quality > this._MINIMUM_QUALITY
-      let maximumQualityNotReach = currentItem.quality < this._MAXIMUN_QUALITY
-      const isInDoubleIncrement = currentItem.sellIn < this._DOUBLE_INCREMENT_THRESHOLD
-      const isInTripleIncrement = currentItem.sellIn < this._TRIPLE_INCREMENT_THRESHOLD
-
       if (isNotAgeBrie && isNotBackstagePasses) {
 
-        if (hasSomeQuality) {
+        if (this.hasSomeQuality(currentItem)) {
           if (isNotSulfuras) {
             currentItem.quality = currentItem.quality - this._UNIT_QUALITY
           }
@@ -50,21 +45,21 @@ class Shop {
 
       } else {
 
-        if (maximumQualityNotReach) {
+        if (this.maximumQualityNotReach(currentItem)) {
 
           currentItem.quality = currentItem.quality + this._UNIT_QUALITY
-          maximumQualityNotReach = currentItem.quality < this._MAXIMUN_QUALITY
+
           if (isBackstagePasses) {
-            if (isInDoubleIncrement) {
-              if (maximumQualityNotReach) {
+
+            if (this.isInDoubleIncrement(currentItem)) {
+              if (this.maximumQualityNotReach(currentItem)) {
                 currentItem.quality = currentItem.quality + this._UNIT_QUALITY
-                maximumQualityNotReach = currentItem.quality < this._MAXIMUN_QUALITY
               }
             }
-            if (isInTripleIncrement) {
-              if (maximumQualityNotReach) {
+
+            if (this.isInTripleIncrement(currentItem)) {
+              if (this.maximumQualityNotReach(currentItem)) {
                 currentItem.quality = currentItem.quality + this._UNIT_QUALITY
-                maximumQualityNotReach = currentItem.quality < this._MAXIMUN_QUALITY
               }
             }
           }
@@ -75,13 +70,13 @@ class Shop {
         currentItem.sellIn = currentItem.sellIn - this._UNIT_SELLIN
       }
 
-      if (currentItem.sellIn < this._MINIMUM_SELLIN) {
+      if (this.isExpired(currentItem)) {
 
         if (isNotAgeBrie) {
 
           if (isNotBackstagePasses) {
 
-            if (hasSomeQuality) {
+            if (this.hasSomeQuality(currentItem)) {
 
               if (isNotSulfuras) {
                 currentItem.quality = currentItem.quality - this._UNIT_QUALITY
@@ -95,13 +90,38 @@ class Shop {
 
         } else {
 
-          if (maximumQualityNotReach) {
+          if (this.maximumQualityNotReach(currentItem)) {
             currentItem.quality = currentItem.quality + this._UNIT_QUALITY
           }
         }
       }
     }
     return this.items;
+  }
+  
+  isExpired (currentItem) {
+    const isExpired = currentItem.sellIn < this._MINIMUM_SELLIN
+    return isExpired
+  }
+
+  isInTripleIncrement (currentItem) {
+    const isInTripleIncrement = currentItem.sellIn < this._TRIPLE_INCREMENT_THRESHOLD
+    return isInTripleIncrement
+  }
+
+  isInDoubleIncrement (currentItem) {
+    const isInDoubleIncrement = currentItem.sellIn < this._DOUBLE_INCREMENT_THRESHOLD
+    return isInDoubleIncrement
+  }
+
+  maximumQualityNotReach (currentItem) {
+    const maximumQualityNotReach = currentItem.quality < this._MAXIMUN_QUALITY
+    return maximumQualityNotReach
+  }
+
+  hasSomeQuality (currentItem) {
+    const hasSomeQuality = currentItem.quality > this._MINIMUM_QUALITY
+    return hasSomeQuality
   }
 }
 
