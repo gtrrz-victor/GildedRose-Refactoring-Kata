@@ -22,9 +22,9 @@ test("Gilded Rose", function(t) {
       t.equal((expectSellinItem_2),items[1].sellIn)
     })
     t.test('quality should decrease 1 point when sellin > 0',(t)=>{
-      const expectQualityValue = 9;
-      const initialSellin = 10; 
       const initialQuality = 10;
+      const expectQualityValue = initialQuality-1;
+      const initialSellin = 1; 
       const gildedRose = new Shop([ 
         new Item(productName, initialSellin, initialQuality)
       ]);
@@ -34,10 +34,10 @@ test("Gilded Rose", function(t) {
       t.equal(expectQualityValue,items[0].quality)
       t.equal((initialSellin-1),items[0].sellIn)
     })
-    t.test('quality should decrease 1 point when sellin === 0',(t)=>{
-      const expectQualityValue = 9;
-      const initialSellin = 1; 
+    t.test('quality should decrease 2 point when sellin === 0',(t)=>{
       const initialQuality = 10;
+      const expectQualityValue = initialQuality-2;
+      const initialSellin = 0; 
       const gildedRose = new Shop([ 
         new Item(productName, initialSellin, initialQuality)
       ]);
@@ -48,9 +48,9 @@ test("Gilded Rose", function(t) {
       t.equal((initialSellin-1),items[0].sellIn)
     })
     t.test('quality should decrease 2 point when sellin < 0',(t)=>{
-      const expectQualityValue = 8;
-      const initialSellin = -1; 
       const initialQuality = 10;
+      const expectQualityValue = initialQuality -2 ;
+      const initialSellin = -1; 
       const gildedRose = new Shop([ 
         new Item(productName, initialSellin, initialQuality)
       ]);
@@ -62,7 +62,7 @@ test("Gilded Rose", function(t) {
     })
     t.end()
   })
-
+/*
   test("Conjured product",(t)=>{
     const productName = "Conjured";
     t.test('quality should be >= 0',(t)=>{
@@ -122,7 +122,7 @@ test("Gilded Rose", function(t) {
     })
     t.end()
   })
-
+*/
 
   test("'Aged Brie' product",(t)=>{
     const productName = 'Aged Brie';
@@ -150,10 +150,10 @@ test("Gilded Rose", function(t) {
       t.equal(expectQualityValue,items[0].quality)
       t.equal((initialSellin-1),items[0].sellIn)
     })
-    t.test('quality should increase 1 point when sellin === 0',(t)=>{
+    t.test('quality should increase 2 point when sellin === 0',(t)=>{
       const initialQuality = 10;
-      const expectQualityValue = initialQuality+1;
-      const initialSellin = 1; 
+      const expectQualityValue = initialQuality+2;
+      const initialSellin = 0; 
       const gildedRose = new Shop([ 
         new Item(productName, initialSellin, initialQuality)
       ]);
@@ -200,7 +200,7 @@ test("Gilded Rose", function(t) {
     t.test('quality should increase 1 point when sellin > 10',(t)=>{
       const initialQuality = 10;
       const expectQualityValue = initialQuality+1;
-      const initialSellin = 12; 
+      const initialSellin = 11; 
       const gildedRose = new Shop([ 
         new Item(productName, initialSellin, initialQuality)
       ]);
@@ -209,10 +209,10 @@ test("Gilded Rose", function(t) {
       t.equal(expectQualityValue,items[0].quality)
       t.equal((initialSellin-1),items[0].sellIn)
     })
-    t.test('quality should increase 1 point when sellin === 10',(t)=>{
+    t.test('quality should increase 2 point when sellin === 10',(t)=>{
       const initialQuality = 10;
-      const expectQualityValue = initialQuality+1;
-      const initialSellin = 11; 
+      const expectQualityValue = initialQuality+2;
+      const initialSellin = 10; 
       const gildedRose = new Shop([ 
         new Item(productName, initialSellin, initialQuality)
       ]);
@@ -224,7 +224,7 @@ test("Gilded Rose", function(t) {
     t.test('quality should increase 2 point when sellin < 10',(t)=>{
       const initialQuality = 9;
       const expectQualityValue = initialQuality+2;
-      const initialSellin = 10; 
+      const initialSellin = 9; 
       const gildedRose = new Shop([ 
         new Item(productName, initialSellin, initialQuality)
       ]);
@@ -233,10 +233,10 @@ test("Gilded Rose", function(t) {
       t.equal(expectQualityValue,items[0].quality)
       t.equal((initialSellin-1),items[0].sellIn)
     })
-    t.test('quality should increase 2 point when sellin === 5',(t)=>{
+    t.test('quality should increase 3 point when sellin === 5',(t)=>{
       const initialQuality = 9;
-      const expectQualityValue = initialQuality+2;
-      const initialSellin = 6; 
+      const expectQualityValue = initialQuality+3;
+      const initialSellin = 5; 
       const gildedRose = new Shop([ 
         new Item(productName, initialSellin, initialQuality)
       ]);
@@ -257,7 +257,7 @@ test("Gilded Rose", function(t) {
       t.equal(expectQualityValue,items[0].quality)
       t.equal((initialSellin-1),items[0].sellIn)
     })
-    t.test('quality should increase 3 point when sellin === 0',(t)=>{
+    t.test('quality should increase 3 point when sellin > 0',(t)=>{
       const initialQuality = 9;
       const expectQualityValue = initialQuality+3;
       const initialSellin = 1; 
@@ -269,7 +269,7 @@ test("Gilded Rose", function(t) {
       t.equal(expectQualityValue,items[0].quality)
       t.equal((initialSellin-1),items[0].sellIn)
     })
-    t.test('quality should be zero when sellin < 0',(t)=>{
+    t.test('quality should be zero when sellin <= 0',(t)=>{
       const initialQuality = 9;
       const expectQualityValue = 0;
       const initialSellin = 0; 
