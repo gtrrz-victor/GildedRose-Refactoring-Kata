@@ -56,3 +56,114 @@ Aplicaremos diferentes técnicas de refactor a nuestro código, para que durante
 * Eliminar la identación y las clausuras **else**. Tag: `phase-5`
 * Añadir *guard clauses* a los comandos. Tag: `phase-6`
 * Eliminar la identación de los productos. Tag: `phase-7`
+
+# Diccionario
+
+* Magic Number:
+
+Mal
+```js
+if (myObj.value===5){
+    myObj.error='invalid argument';
+}
+```
+Correcto
+```js
+const invalidArgument = 5
+if (myObj.value===invalidArgument){
+    myObj.error='invalid argument';
+}
+```
+
+* variable temporal, *query*:
+
+Mal
+```js
+const invalidArgument = 5
+if (myObj.value===invalidArgument){
+    myObj.error='invalid argument';
+}
+```
+Correcto
+```js
+const invalidArgument = 5
+const isInvalidArgumentPassed = myObj.value===invalidArgument;
+if (isInvalidArgumentPassed){
+    myObj.error='invalid argument';
+}
+```
+* Crear método por cada variable temporal
+
+Mal
+```js
+const invalidArgument = 5
+const isInvalidArgumentPassed = myObj.value===invalidArgument;
+if (isInvalidArgumentPassed){
+    myObj.error='invalid argument';
+}
+```
+Correcto
+```js
+
+if (isInvalidArgumentPassed(myObj)){
+    myObj.error='invalid argument';
+}
+function isInvalidArgumentPassed(obj){
+    const invalidArgument = 5
+    return obj.value===invalidArgument;
+}
+```
+* Crear métodos por cada comando
+
+Mal
+```js
+if (isInvalidArgumentPassed(myObj)){
+    myObj.error='invalid argument';
+}
+function isInvalidArgumentPassed(obj){
+    const invalidArgument = 5
+    return obj.value===invalidArgument;
+}
+```
+Correcto
+```js
+
+if (isInvalidArgumentPassed(myObj)){
+    addInvalidArgumentError(myObj);
+}
+function addInvalidArgumentError(obj){
+    obj.error='invalid argument';
+}
+function isInvalidArgumentPassed(obj){
+    const invalidArgument = 5
+    return obj.value===invalidArgument;
+}
+```
+* Añadir *guard clauses* 
+
+Mal
+```js
+if (isInvalidArgumentPassed(myObj)){
+    addInvalidArgumentError(myObj);
+}
+function addInvalidArgumentError(obj){
+    obj.error='invalid argument';
+}
+function isInvalidArgumentPassed(obj){
+    const invalidArgument = 5
+    return obj.value===invalidArgument;
+}
+```
+Correcto
+```js
+addInvalidArgumentError(myObj);
+
+function addInvalidArgumentError(obj){
+    if (!isInvalidArgumentPassed(obj)) return;
+    obj.error='invalid argument';    
+}
+function isInvalidArgumentPassed(obj){
+    const invalidArgument = 5
+    return obj.value===invalidArgument;
+}
+```
