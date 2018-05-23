@@ -78,3 +78,18 @@ ok 1 should be equal
 
 # ok
 ```
+
+## Ejecucción de las mutaciones
+
+Una vez terminada nuestra suit de test, vamos a comprobar como de buena es esta. 
+Hay una serie de mutaciones en la clase Shop añadidas a proposito, veamos si nuestros tests tienen la sensibilidad suficiente como para capturar estos errores.
+
+Hay 8 mutaciones:
+* `npm t 1` -> Error ?
+* `npm t 2` -> Error ?
+* `npm t 3` -> Error ?
+* `npm t 4` -> Error ?
+* `npm t 5` -> Error ?
+* `npm t 6` -> Error ?
+* `npm t 7` -> Error ?
+* `npm t 8` -> Error ?
